@@ -29,3 +29,19 @@ steps:
     nugetPackageVersionSelector: 'Specific'
     nugetPackageVersion: '1.0'
     requiredVersionOfDlma: 'latest'
+- task: RedgateSqlChangeAutomationRelease@4
+  inputs:
+    Operation: 'Create'
+    NuGetFile: '.'
+    SourceDatabaseUsername: 'sa'
+    TargetDatabaseConnectionType: 'explicit'
+    TargetDatabaseServer: 'clone-internal.red-gate.com,32814'
+    TargetDatabaseName: 'master'
+    TargetTrustServerCertificate: true
+    TargetAuthMethod: 'sqlServerAuth'
+    TargetDatabaseUsername: 'sa'
+    TargetDatabasePassword: '89IrDQTf41JST6gX'
+    TransactionIsolationLevel: 'serializable'
+    DriftFiltering: 'ModifiedObjectsOnly'
+    AbortOnWarning: 'none'
+    requiredVersionOfDlma: 'latest'
