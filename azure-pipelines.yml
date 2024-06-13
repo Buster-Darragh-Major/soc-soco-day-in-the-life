@@ -45,10 +45,12 @@ steps:
     DriftFiltering: 'ModifiedObjectsOnly'
     AbortOnWarning: 'none'
     requiredVersionOfDlma: 'latest'
+    ExportPath: './export'
+
 - task: RedgateSqlChangeAutomationRelease@4
   inputs:
     Operation: 'DeployFromResources'
-    ImportPath: '.'
+    ImportPath: './export'
     SourceDatabaseUsername: 'sa'
     TargetDatabaseConnectionType: 'explicit'
     TargetDatabaseServer: 'clone-internal.red-gate.com,32814'
