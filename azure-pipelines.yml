@@ -1,0 +1,62 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: windows-latest
+
+steps:
+# - script: echo Hello, world!
+#   displayName: 'Run a one-line script'
+
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     echo See https://aka.ms/yaml
+#   displayName: 'Run a multi-line script'
+
+- task: RedgateSqlChangeAutomationBuild@4
+  inputs:
+    operation: 'Build'
+    dbFolder: 'RootFolder'
+    packageName: 'DayInTheLife'
+    tempServerTypeBuild: 'localDB'
+    buildAdvanced: true
+    transactionIsolationLevelBuild: 'serializable'
+    nugetPackageVersionSelector: 'Specific'
+    nugetPackageVersion: '1.0'
+    requiredVersionOfDlma: 'latest'
+- task: RedgateSqlChangeAutomationRelease@4
+  inputs:
+    Operation: 'Create'
+    NuGetFile: '.'
+    SourceDatabaseUsername: 'sa'
+    TargetDatabaseConnectionType: 'explicit'
+    TargetDatabaseServer: 'clone-internal.red-gate.com,32814'
+    TargetDatabaseName: 'master'
+    TargetTrustServerCertificate: true
+    TargetAuthMethod: 'sqlServerAuth'
+    TargetDatabaseUsername: 'sa'
+    TargetDatabasePassword: '89IrDQTf41JST6gX'
+    TransactionIsolationLevel: 'serializable'
+    DriftFiltering: 'ModifiedObjectsOnly'
+    AbortOnWarning: 'none'
+    requiredVersionOfDlma: 'latest'
+    ExportPath: './export'
+
+- task: RedgateSqlChangeAutomationRelease@4
+  inputs:
+    Operation: 'DeployFromResources'
+    ImportPath: './export'
+    SourceDatabaseUsername: 'sa'
+    TargetDatabaseConnectionType: 'explicit'
+    TargetDatabaseServer: 'clone-internal.red-gate.com,32814'
+    TargetDatabaseName: 'master'
+    TargetEncrypt: true
+    TargetAuthMethod: 'sqlServerAuth'
+    TargetDatabaseUsername: 'sa'
+    TargetDatabasePassword: '89IrDQTf41JST6gX'
+    requiredVersionOfDlma: 'latest'
