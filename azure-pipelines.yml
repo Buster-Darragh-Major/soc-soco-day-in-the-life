@@ -42,8 +42,8 @@ steps:
     TargetDatabaseUsername: 'sa'
     TargetDatabasePassword: '89IrDQTf41JST6gX'
     TransactionIsolationLevel: 'serializable'
-    DriftFiltering: 'ModifiedObjectsOnly'
-    AbortOnWarning: 'none'
+    DriftFiltering: 'AllObjects'
+    AbortOnWarning: 'medium'
     requiredVersionOfDlma: 'latest'
     ExportPath: './export'
 
