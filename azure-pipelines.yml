@@ -48,7 +48,7 @@ steps:
     ExportPath: './export'
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: './export'
+    targetPath: '../../../_tasks'
     artifact: 'release-artifact'
     publishLocation: 'pipeline'
 
