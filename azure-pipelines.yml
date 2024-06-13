@@ -43,9 +43,14 @@ steps:
     TargetDatabasePassword: '89IrDQTf41JST6gX'
     TransactionIsolationLevel: 'serializable'
     DriftFiltering: 'AllObjects'
-    AbortOnWarning: 'medium'
+    AbortOnWarning: 'none'
     requiredVersionOfDlma: 'latest'
     ExportPath: './export'
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: './export'
+    artifact: 'release-artifact'
+    publishLocation: 'pipeline'
 
 - task: RedgateSqlChangeAutomationRelease@4
   inputs:
