@@ -45,3 +45,16 @@ steps:
     DriftFiltering: 'ModifiedObjectsOnly'
     AbortOnWarning: 'none'
     requiredVersionOfDlma: 'latest'
+- task: RedgateSqlChangeAutomationRelease@4
+  inputs:
+    Operation: 'DeployFromResources'
+    ImportPath: '.'
+    SourceDatabaseUsername: 'sa'
+    TargetDatabaseConnectionType: 'explicit'
+    TargetDatabaseServer: 'clone-internal.red-gate.com,32814'
+    TargetDatabaseName: 'master'
+    TargetEncrypt: true
+    TargetAuthMethod: 'sqlServerAuth'
+    TargetDatabaseUsername: 'sa'
+    TargetDatabasePassword: '89IrDQTf41JST6gX'
+    requiredVersionOfDlma: 'latest'
